@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ recipe.title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+     body {
+            background: linear-gradient(to bottom, #5c8390, #66ccff);
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar-search {
+        margin-right: 20px;
+        }
+        .navbar-custom {
+            background-color: #f0f5f8;
+         }
+        .footer {
+         background-color: #acb9c1;
+         padding: 20px; /* Adjust the padding to your preference */
+         text-align: center;
+         font-size: 12px; /* Adjust the font size to your preference */
+          color: #202223;
+         margin-top: 20px; /* Add margin to create space between body content and footer */
+         }
+         .navbar-icon {
+         width: 24px; /* Adjust the size as needed */
+         height: 24px; /* Adjust the size as needed */
+         margin-right: 10px; /* Adjust the margin as needed */
+        }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+        <a class="navbar-brand navbar-brand-custom" href="{% url 'recips_list' %}">
+            <img src="/media/static/images/restaurant.png" alt="HeavenlyBites Icon" class="navbar-icon">
+            HeavenlyBites
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'recips_list' in request.path %}active-link{% endif %}" href="{% url 'recips_list' %}">Recipe List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'post_list' in request.path %}active-link{% endif %}" href="{% url 'post_list' %}">Food Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'about' in request.path %}active-link{% endif %}" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'add_your_own_recipes' in request.path %}active-link{% endif %}" href="{% url 'add_your_own_recipes' %}">Add Your Own Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0 navbar-search" method="post" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search recipes" aria-label="Search" name="searched">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    
+    
+
+    <div class="container mt-4">
+        <h1>{{ recipe.title }}</h1>
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }} Image" class="img-fluid mb-4" style="max-width: 300px;">
+        <p class="lead">Description: {{ recipe.description }}</p>
+        <h4>Steps:</h4>
+        <p>{{ recipe.steps|linebreaksbr }}</p>
+        <a href="{% url 'recips_list' %}" class="btn btn-primary">Back to Recipe List</a>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 HeavenlyBites. All rights reserved.</p>
+    </footer>
+
+    <!-- Include Bootstrap JS if needed -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

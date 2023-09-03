@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <style>
+      body {
+            background-image:url(/media/static/images/flat-lay-different-ingredients-composition-with-copy-space.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* You can adjust the colors and direction as needed */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .footer {
+            background-color: #acb9c1;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #202223;
+            margin-top: 300px;
+        }
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #f0f5f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .navbar-custom {
+            background-color: #f0f5f8;
+        }
+
+        .active-link {
+            font-weight: bold;
+        }
+
+        .navbar-brand-custom {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0d0d0e;
+        }
+
+        .nav-link-custom {
+            font-size: 1rem;
+            color: #050505;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link-custom:hover {
+            color: #0056b3;
+        }
+
+        .navbar-search {
+            margin-right: 20px;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+        <a class="navbar-brand navbar-brand-custom" href="{% url 'recips_list' %}">
+            <img src="/media/static/images/restaurant.png" alt="HeavenlyBites Icon" class="navbar-icon">
+            HeavenlyBites
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'recips_list' in request.path %}active-link{% endif %}"
+                        href="{% url 'recips_list' %}">Recipe List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'post_list' in request.path %}active-link{% endif %}"
+                        href="{% url 'post_list' %}">Food Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'about' in request.path %}active-link{% endif %}"
+                        href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'add_your_own_recipes' in request.path %}active-link{% endif %}"
+                        href="{% url 'add_your_own_recipes' %}">Add Your Own Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Create a New Blog Post</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Create Post</button>
+        </form>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2023 HeavenlyBites. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

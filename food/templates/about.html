@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+     body {
+            background-image:url(/media/static/images/top-view-beans-peppers-with-onions-garlics-dark-food-meal-ingredient-product.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* You can adjust the colors and direction as needed */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+   .footer {
+         background-color: #acb9c1;
+         padding: 20px; /* Adjust the padding to your preference */
+         text-align: center;
+         font-size: 12px; /* Adjust the font size to your preference */
+          color: #202223;
+         margin-top: 20px; /* Add margin to create space between body content and footer */
+         }
+       .header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 85px 350px;
+            padding: 100px;
+            background-color: #dde5ea;
+            height: 100%;
+        }
+
+        .about-content {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .navbar {
+            background-color: #f0f5f8;
+        }
+        .navbar-icon {
+         width: 24px; /* Adjust the size as needed */
+         height: 24px; /* Adjust the size as needed */
+         margin-right: 10px; /* Adjust the margin as needed */
+        }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+        <a class="navbar-brand navbar-brand-custom" href="{% url 'recips_list' %}">
+            <img src="/media/static/images/restaurant.png" alt="HeavenlyBites Icon" class="navbar-icon">
+            HeavenlyBites
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'recips_list' in request.path %}active-link{% endif %}" href="{% url 'recips_list' %}">Recipe List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'post_list' in request.path %}active-link{% endif %}" href="{% url 'post_list' %}">Food Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'about' in request.path %}active-link{% endif %}" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'add_your_own_recipes' in request.path %}active-link{% endif %}" href="{% url 'add_your_own_recipes' %}">Add Your Own Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0 navbar-search" method="post" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search recipes" aria-label="Search" name="searched">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+
+  
+    <div class="container">
+        <div class="header">
+            <h1>About Us</h1>
+            <p>Welcome to HeavenlyBites! Discover the flavors that bring joy to your taste buds.</p>
+        </div><br><br><br>
+    
+        <h2>Our Story</h2>
+        <div class="about-content">
+            <p>We are passionate about creating and sharing delicious recipes that make every meal a memorable experience. Our culinary journey began with a love for diverse cuisines and a desire to bring the best flavors to your table.</p>
+            <p>At HeavenlyBites, we believe that food is not just sustenance; it's an art that can delight the senses. Our team of chefs and food enthusiasts is dedicated to curating and presenting recipes that celebrate the fusion of taste and culture.</p>
+        </div>
+    </div><br><br><br><br><br><br><br><br><br>
+    <footer class="footer">
+        <p>&copy; 2023 HeavenlyBites. All rights reserved.</p>
+    </footer>
+</body>
+</html>

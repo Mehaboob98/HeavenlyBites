@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+            background-image:url(/media/static/images/flat-lay-different-ingredients-composition-with-copy-space.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* You can adjust the colors and direction as needed */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+   .footer {
+    background-color: #acb9c1;
+    padding: 20px; /* Adjust the padding to your preference */
+    text-align: center;
+    font-size: 12px; /* Adjust the font size to your preference */
+     color: #202223;
+    margin-top: 300px; /* Add margin to create space between body content and footer */
+    }
+    .navbar-icon {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px; /* Adjust the size as needed */
+    margin-right: 10px; /* Adjust the margin as needed */
+   }
+    .navbar-custom {
+       background-color: #f0f5f8;
+    }
+    .active-link {
+      font-weight: bold;
+   }
+   .navbar-brand-custom {
+     font-size: 1.5rem;
+     font-weight: bold;
+     color: #0d0d0e;
+    }
+
+   .nav-link-custom {
+       font-size: 1rem;
+        color: #050505;
+        transition: color 0.3s ease;
+   }
+
+   .nav-link-custom:hover {
+       color: #0056b3;
+   }
+   .navbar-search {
+   margin-right: 20px;
+   }
+   .active-link {
+      color: #0056b3 !important;
+      font-weight: bold;
+   }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+        <a class="navbar-brand navbar-brand-custom" href="{% url 'recips_list' %}">
+            <img src="/media/static/images/restaurant.png" alt="HeavenlyBites Icon" class="navbar-icon">
+            HeavenlyBites
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'recips_list' in request.path %}active-link{% endif %}" href="{% url 'recips_list' %}">Recipe List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'post_create' in request.path %}active-link{% endif %}" href="{% url 'post_create' %}">Add Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'about' in request.path %}active-link{% endif %}" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'add_your_own_recipes' in request.path %}active-link{% endif %}" href="{% url 'add_your_own_recipes' %}">Add Your Own Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5">
+        <h1>Food Blog Posts</h1>
+        <div class="row">
+          {% for post in posts %}
+          <div class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h5>
+                <p class="card-text">{{ post.content|truncatechars:200 }}</p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Published on {{ post.publication_date|date:"F d, Y" }}</small>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+          <p>No blog posts available.</p>
+          {% endfor %}
+        </div>
+    
+        <div class="pagination">
+          <span class="step-links">
+            {% if posts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+            <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+
+<footer class="footer">
+    <p>&copy; 2023 HeavenlyBites. All rights reserved.</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

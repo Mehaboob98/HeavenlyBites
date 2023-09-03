@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+         body {
+            background-image:url(/media/static/images/top-view-beans-peppers-with-onions-garlics-dark-food-meal-ingredient-product.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            /* You can adjust the colors and direction as needed */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        .footer {
+         background-color: #acb9c1;
+         padding: 20px; /* Adjust the padding to your preference */
+         text-align: center;
+         font-size: 12px; /* Adjust the font size to your preference */
+          color: #202223;
+         margin-top: 20px; /* Add margin to create space between body content and footer */
+         }
+         .navbar-icon {
+         width: 24px; /* Adjust the size as needed */
+         height: 24px; /* Adjust the size as needed */
+         margin-right: 10px; /* Adjust the margin as needed */
+        }
+         .navbar-custom {
+            background-color: #f0f5f8;
+         }
+         .active-link {
+           font-weight: bold;
+        }
+        .navbar-brand-custom {
+          font-size: 1.5rem;
+          font-weight: bold;
+          color: #007bff;
+         }
+
+        .nav-link-custom {
+            font-size: 1rem;
+             color: #050505;
+             transition: color 0.3s ease;
+        }
+
+        .nav-link-custom:hover {
+            color: #0056b3;
+        }
+        .navbar-search {
+        margin-right: 20px;
+        }
+        .active-link {
+           color: #0056b3 !important;
+           font-weight: bold;
+        }
+
+        .recipe-card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            
+        }
+
+        .recipe-card img {
+            width: 300px; 
+            height: 200px; 
+            object-fit: cover;
+        }
+
+        .recipe-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .recipe-description {
+            color: #454c52;
+        }
+
+        .view-details-btn {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .view-details-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light  navbar-custom">
+        <a class="navbar-brand navbar-brand-custom" href="{% url 'recips_list' %}">
+            <img src="/media/static/images/restaurant.png" alt="HeavenlyBites Icon" class="navbar-icon">
+            HeavenlyBites
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'recips_list' in request.path %}active-link{% endif %}" href="{% url 'recips_list' %}">Recipe List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'post_list' in request.path %}active-link{% endif %}" href="{% url 'post_list' %}">Food Blogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'about' in request.path %}active-link{% endif %}" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-custom {% if 'add_your_own_recipes' in request.path %}active-link{% endif %}" href="{% url 'add_your_own_recipes' %}">Add Your Own Recipe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <form class="form-inline my-2 my-lg-0 navbar-search" method="post" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <input class="form-control mr-sm-2" type="search" placeholder="Search recipes" aria-label="Search" name="searched">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </nav>
+    
+{% if messages %}
+<div class="container mt-4">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+{% endif %}
+    
+
+    <h1 class="mt-5"></h1>
+    <div class="container">
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card recipe-card">
+                        <img src="{{ recipe.image.url }}" class="card-img-top" alt="{{ recipe.title }} Image">
+                        <div class="card-body">
+                            <h5 class="card-title recipe-title">{{ recipe.title }}</h5>
+                            <p class="card-text recipe-description">{{ recipe.description }}</p>
+                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-primary view-details-btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer class="footer">
+        <p>&copy; 2023 HeavenlyBites. All rights reserved.</p>
+    </footer>
+
+    <!-- Include Bootstrap JS if needed -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
