@@ -13,7 +13,7 @@ HeavenlyBites is a django based project which is a  delightful culinary platform
 - Usage
 
 
-## Screenshots(text)
+## [Screenshots](text)
 
 ![App Screenshot](https://github.com/Mehaboob98/HeavenlyBites/blob/main/screenshots/project%208.png?raw=true)
 ![App Screenshot](https://github.com/Mehaboob98/HeavenlyBites/blob/main/screenshots/project%206.png?raw=true)
