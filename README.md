@@ -10,7 +10,7 @@ HeavenlyBites is a django based project which is a  delightful culinary platform
 
  - [Features](#features)
    
- - [Getting started](#getting started)
+ - [Getting started](#gettingstarted)
    
 - [Usage](#usage)
 
